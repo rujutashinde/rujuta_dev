@@ -1,0 +1,31 @@
+name: Welcome First-Time Contributor
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if first-time contributor
+        if: github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sticker = "![sticker](https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif)";
+            const message = `
+            🎉 Thank you @${context.payload.pull_request.user.login} for your **first contribution**! 🎉  
+            
+            ${sticker}
+
+            We’re excited to have you here — welcome to the project! 🚀
+            `;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
