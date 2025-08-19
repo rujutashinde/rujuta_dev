@@ -8,18 +8,29 @@ jobs:
   welcome:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if first-time contributor
-        if: github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+      - name: Post welcome message if first-time contributor
+        if: |
+          github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' || 
+          github.event.pull_request.author_association == 'FIRST_TIMER'
         uses: actions/github-script@v7
         with:
           script: |
-            const sticker = "![sticker](https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif)";
+            const stickers = [
+              "![🎉 Sticker](https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif)",
+              "![🚀 Sticker](https://media.giphy.com/media/duzpaTbCUy9Vu/giphy.gif)",
+              "![👏 Sticker](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)",
+              "![🌟 Sticker](https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif)",
+              "![🔥 Sticker](https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif)"
+            ];
+
+            const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
+
             const message = `
             🎉 Thank you @${context.payload.pull_request.user.login} for your **first contribution**! 🎉  
-            
-            ${sticker}
 
-            We’re excited to have you here — welcome to the project! 🚀
+            ${randomSticker}
+
+            We’re thrilled to have you join the project — welcome aboard! 🚀
             `;
 
             await github.rest.issues.createComment({
