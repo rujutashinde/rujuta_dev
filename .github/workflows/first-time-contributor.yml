@@ -11,7 +11,8 @@ jobs:
       - name: Post welcome message if first-time contributor
         if: |
           github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' || 
-          github.event.pull_request.author_association == 'FIRST_TIMER'
+          github.event.pull_request.author_association == 'FIRST_TIMER' ||
+          github.event.pull_request.author_association == 'NONE'
         uses: actions/github-script@v7
         with:
           script: |
@@ -33,10 +34,24 @@ jobs:
             We’re thrilled to have you join the project — welcome aboard! 🚀
             `;
 
+            // add comment
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: message
             });
+
+            // Add label (creates if missing)
+            const labelName = "first-time-contributor";
+            try {
+              await github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: [labelName]
+              });
+            } catch (err) {
+              core.warning(`Could not add label: ${err.message}`);
+            }
 
