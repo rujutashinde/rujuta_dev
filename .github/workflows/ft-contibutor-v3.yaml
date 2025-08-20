@@ -22,7 +22,9 @@ jobs:
         if: |
           github.event.pull_request.author_association == 'FIRST_TIMER' || 
           github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' || 
-          github.event.pull_request.author_association == 'NONE'
+          github.event.pull_request.author_association == 'NONE' ||
+          github.event.pull_request.author_association != 'CONTRIBUTOR'
+          
         uses: actions/github-script@v7
         with:
           script: |
@@ -50,34 +52,5 @@ jobs:
               repo: context.repo.repo,
               body: message
             });
-
-      - name: Post something else
-        if: |
-          github.event.pull_request.author_association != 'FIRST_TIMER' || 
-          github.event.pull_request.author_association != 'FIRST_TIME_CONTRIBUTOR' || 
-          github.event.pull_request.author_association != 'NONE'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const stickers = [
-              "![🔥 Sticker](https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif)"
-            ];
-
-            const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
-
-            const message = `
-            🎉 Hello @${context.payload.pull_request.user.login} for your **first contribution**! 🎉  
-
-            ${randomSticker}
-
-            We’re thrilled to have you join the project — welcome aboard! 🚀
-            `;
-
-            // Post a comment
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: message
-            });            
+          
 
