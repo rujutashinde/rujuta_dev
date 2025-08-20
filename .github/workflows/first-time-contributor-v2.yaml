@@ -30,7 +30,7 @@ jobs:
 
             const prior = prs.filter(pr => pr.user.login == login && pr.number != context.issue.number);
 
-            core.setOutput("isFirstTime", prior.length == 2);
+            core.setOutput("isFirstTime", prior.length == 0);
       
       - name: Welcome message + sticker
         if: steps.check.outputs.isFirstTime == 'true'
