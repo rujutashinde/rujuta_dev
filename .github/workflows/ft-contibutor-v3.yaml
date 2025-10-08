@@ -33,10 +33,7 @@ jobs:
         with:
           script: |
             const stickers = [
-              "![🎉 Sticker](https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif)",
-              "![🚀 Sticker](https://media.giphy.com/media/duzpaTbCUy9Vu/giphy.gif)",
-              "![👏 Sticker](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)",
-              "![🌟 Sticker](https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif)"
+              "![🎉 Sticker](../images/1stpr.png)",
             ];
 
             const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
