@@ -41,10 +41,10 @@ jobs:
 
             const message = `
             🎉 Huge thanks @${login} for your **first contribution**!! 🎉  
+            Your work just became part of the project — we appreciate your effort and welcome you to the community! 🚀
 
             ![Sticker](${imageUrl})
 
-            Your work just became part of the project — we appreciate your effort and welcome you to the community! 🚀
             `;
 
             await github.rest.issues.createComment({
