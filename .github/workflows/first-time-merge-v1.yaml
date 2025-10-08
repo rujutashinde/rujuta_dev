@@ -1,5 +1,9 @@
 name: Thank First-Time Contributor on Merge
 
+env:
+  ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
+  ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}
+
 on:
   pull_request_target:
     types: [closed]
