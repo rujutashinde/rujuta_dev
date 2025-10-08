@@ -32,16 +32,17 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const stickers = [
-              "![🎉 Sticker](https://raw.githubusercontent.com/rujutashinde/rujuta_dev/main/images/1stpr.png)",
-            ];
+            const login = context.payload.pull_request.user.login;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = 'master'; // or 'master' or your default branch name
 
-            const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
+            const imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
 
             const message = `
             🎉 Thank you @${context.payload.pull_request.user.login} for your **first contribution**! 🎉  
 
-            ${randomSticker}
+            ![Sticker](${imageUrl})
 
             We’re thrilled to have you join the project — welcome aboard! 🚀
             `;
