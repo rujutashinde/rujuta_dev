@@ -35,7 +35,7 @@ jobs:
             const login = context.payload.pull_request.user.login;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const branch = 'main'; // or 'master' or your default branch name
+            const branch = 'master'; // or 'master' or your default branch name
 
             const imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
 
