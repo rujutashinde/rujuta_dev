@@ -35,7 +35,7 @@ jobs:
             const login = context.payload.pull_request.user.login;
 
             const stickers = [
-              "![🎉 Sticker](../images/1stpr.png)",
+              "![🎉 Sticker](https://raw.githubusercontent.com/rujutashinde/rujuta_dev/main/images/1stpr.png)",
               "![🚀 Sticker](https://media.giphy.com/media/duzpaTbCUy9Vu/giphy.gif)",
               "![👏 Sticker](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)",
               "![🌟 Sticker](https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif)"

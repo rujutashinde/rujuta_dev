@@ -33,7 +33,7 @@ jobs:
         with:
           script: |
             const stickers = [
-              "![🎉 Sticker](../images/1stpr.png)",
+              "![🎉 Sticker](https://raw.githubusercontent.com/rujutashinde/rujuta_dev/main/images/1stpr.png)",
             ];
 
             const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
