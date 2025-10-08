@@ -33,20 +33,16 @@ jobs:
         with:
           script: |
             const login = context.payload.pull_request.user.login;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = 'main'; // or 'master' or your default branch name
 
-            const stickers = [
-              "![🎉 Sticker](https://raw.githubusercontent.com/rujutashinde/rujuta_dev/main/images/1stpr.png)",
-              "![🚀 Sticker](https://media.giphy.com/media/duzpaTbCUy9Vu/giphy.gif)",
-              "![👏 Sticker](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)",
-              "![🌟 Sticker](https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif)"
-            ];
-
-            const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
+            const imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
 
             const message = `
             🎉 Huge thanks @${login} for your **first contribution**!! 🎉  
 
-            ${randomSticker}
+            ![Sticker](${imageUrl})
 
             Your work just became part of the project — we appreciate your effort and welcome you to the community! 🚀
             `;
