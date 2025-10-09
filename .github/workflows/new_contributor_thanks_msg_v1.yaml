@@ -80,16 +80,16 @@ jobs:
             let messageHeader = ``;
 
             if (mergedCount == 10) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/cooking.png`;
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.4/juggling.png`;
               messageHeader = `🏆 Amazing work @${login}! You've hit **10 merged PRs** — you're on fire!`;
             } else if (mergedCount == 8) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/chemistry.png`;
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.5/onboarding-selkies.png`;
               messageHeader = `🌟 Awesome @${login}! **8 merged PRs** — great momentum!`;
             } else if (mergedCount == 5) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/halloween.png`;
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.6/santaseal.png`;
               messageHeader = `🚀 Impressive @${login}! **5 merged PRs** — you're making an impact!`;
             } else if (mergedCount == 1) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.7/renovations.png`;
               messageHeader = `🎉 Huge thanks @${login} for your **first contribution**!! 🎉`;
             }
 
