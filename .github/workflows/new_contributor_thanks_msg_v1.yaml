@@ -18,20 +18,48 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Debug context
         run: |
           echo "Author Association: ${{ github.event.pull_request.author_association }}"
           echo "User: ${{ github.event.pull_request.user.login }}"
           echo "Merged: ${{ github.event.pull_request.merged }}"
 
+      - name: Skip maintainers
+        id: check-maintainer
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const login = context.payload.pull_request.user.login;
+            const filePath = 'MAINTAINERS.md';
+
+            // Read the MAINTAINERS.md file
+            const content = fs.readFileSync(filePath, 'utf8');
+
+            // Extract all GitHub usernames (strip leading @)
+            const usernames = [...content.matchAll(/@([a-zA-Z0-9-]+)/g)].map(m => m[1].toLowerCase());
+            console.log("Parsed maintainers:", usernames);
+
+            if (usernames.includes(login.toLowerCase())) {
+              console.log(`User ${login} is a maintainer — skipping thank-you message.`);
+              core.setOutput('isMaintainer', 'true');
+            } else {
+              console.log(`User ${login} is NOT a maintainer.`);
+              core.setOutput('isMaintainer', 'false');
+            }
+
       - name: Send thank-you message based on contribution level
+        if: steps.check-maintainer.outputs.isMaintainer == 'false'
         uses: actions/github-script@v7
         with:
           script: |
             const login = context.payload.pull_request.user.login;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const branch = 'master'; 
+            const branch = 'master';
 
             // Fetch *all merged PRs* by this user in this repo
             const { data: allPRs } = await github.rest.pulls.list({
@@ -43,40 +71,39 @@ jobs:
 
             // Count how many merged PRs they have
             const mergedCount = allPRs.filter(pr => pr.user.login === login && pr.merged_at).length;
-
             console.log(`Merged PR count for ${login}: ${mergedCount}`);
 
             // Pick the correct sticker and message
             let imageUrl = ``;
-            let messageHeader = ``;      
+            let messageHeader = ``;
 
             if (mergedCount == 10) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/cooking.png`;
-              messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're a project champion! 🏆`;
+              messageHeader = `🏆 Amazing work @${login}! You've hit **10 merged PRs** — you're on fire!`;
             } else if (mergedCount == 8) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/chemistry.png`;
-              messageHeader = `🌟 Incredible @${login}! **25 merged PRs** — your consistent contributions are powering this project!`;
+              messageHeader = `🌟 Awesome @${login}! **8 merged PRs** — great momentum!`;
             } else if (mergedCount == 5) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/halloween.png`;
-              messageHeader = `🚀 Awesome @${login}! You've reached **10 merged PRs** — we truly appreciate your dedication!`;
+              messageHeader = `🚀 Impressive @${login}! **5 merged PRs** — you're making an impact!`;
             } else if (mergedCount == 1) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
               messageHeader = `🎉 Huge thanks @${login} for your **first contribution**!! 🎉`;
             }
 
-                  // Check that both exist and are non-empty
+            // Only post if both exist
             if (messageHeader && imageUrl) {
-               const message = `
+              const message = `
               ${messageHeader}
-              ![Sticker](${imageUrl})
-               `;
 
+              ![Sticker](${imageUrl})
+              `;
               await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner,
-              repo,
-              body: message
-             });
-             } else {
+                issue_number: context.issue.number,
+                owner,
+                repo,
+                body: message
+              });
+            } else {
               console.log("No messageHeader or imageUrl found — skipping comment.");
             }
