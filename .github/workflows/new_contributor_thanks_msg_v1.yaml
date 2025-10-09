@@ -47,8 +47,7 @@ jobs:
             console.log(`Merged PR count for ${login}: ${mergedCount}`);
 
             // Pick the correct sticker and message
-            let imageUrl = ``;
-            let messageHeader = ``;
+          
 
             if (mergedCount == 10) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/cooking.png`;
@@ -64,18 +63,21 @@ jobs:
               messageHeader = `🎉 Huge thanks @${login} for your **first contribution**!! 🎉`;
             }
 
-            const message = `
-            ${messageHeader}
+                  // Check that both exist and are non-empty
+            if (messageHeader && imageUrl) {
+               const message = `
+              ${messageHeader}
+              @${login}, we appreciate your contribution! 🚀
 
-            ![Sticker](${imageUrl})
+              ![Sticker](${imageUrl})
+               `;
 
-            We’re so grateful for your efforts and happy to have you as part of the community 💖
-            `;
-
-            // Post a thank-you comment
-            await github.rest.issues.createComment({
+              await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner,
               repo,
               body: message
-            });
+             });
+             } else {
+              console.log("No messageHeader or imageUrl found — skipping comment.");
+            }
