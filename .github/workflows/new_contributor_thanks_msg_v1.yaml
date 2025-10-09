@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  thank-you:
+  thank-you-contributor:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
@@ -74,6 +74,8 @@ jobs:
             console.log(`Merged PR count for ${login}: ${mergedCount}`);
 
             // Pick the correct sticker and message
+            // This part of the code will change as we need to have a separate repo for the images
+            // will modify this code when we decide on what images to use as stickers
             let imageUrl = ``;
             let messageHeader = ``;
 
