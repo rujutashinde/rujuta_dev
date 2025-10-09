@@ -47,7 +47,8 @@ jobs:
             console.log(`Merged PR count for ${login}: ${mergedCount}`);
 
             // Pick the correct sticker and message
-          
+            let imageUrl = ``;
+            let messageHeader = ``          
 
             if (mergedCount == 10) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/cooking.png`;
