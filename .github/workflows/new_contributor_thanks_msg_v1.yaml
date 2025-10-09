@@ -31,7 +31,7 @@ jobs:
             const login = context.payload.pull_request.user.login;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const branch = 'main'; // Change if your default branch is 'master'
+            const branch = 'master'; 
 
             // Fetch *all merged PRs* by this user in this repo
             const { data: allPRs } = await github.rest.pulls.list({
@@ -50,14 +50,14 @@ jobs:
             let imageUrl = ``;
             let messageHeader = ``;
 
-            if (mergedCount == 50) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/50pr.png`;
+            if (mergedCount == 10) {
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/cooking.png`;
               messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're a project champion! 🏆`;
-            } else if (mergedCount == 25) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/25pr.png`;
+            } else if (mergedCount == 8) {
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/chemistry.png`;
               messageHeader = `🌟 Incredible @${login}! **25 merged PRs** — your consistent contributions are powering this project!`;
-            } else if (mergedCount == 10) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/10pr.png`;
+            } else if (mergedCount == 5) {
+              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/halloween.png`;
               messageHeader = `🚀 Awesome @${login}! You've reached **10 merged PRs** — we truly appreciate your dedication!`;
             } else if (mergedCount == 1) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/images/1stpr.png`;
