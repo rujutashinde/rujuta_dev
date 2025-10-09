@@ -68,8 +68,6 @@ jobs:
             if (messageHeader && imageUrl) {
                const message = `
               ${messageHeader}
-              @${login}, we appreciate your contribution! 🚀
-
               ![Sticker](${imageUrl})
                `;
 
