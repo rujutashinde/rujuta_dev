@@ -59,13 +59,13 @@ jobs:
 
             // Extract all GitHub usernames (strip leading @)
             const usernames = [...content.matchAll(/@([a-zA-Z0-9-]+)/g)].map(m => m[1].toLowerCase());
-            // console.log("Parsed maintainers:", usernames);
+            console.log("Parsed maintainers:", usernames);
 
             if (usernames.includes(login.toLowerCase())) {
-              // console.log(`User ${login} is a maintainer — skipping thank-you message.`);
+              console.log(`User ${login} is a maintainer — skipping thank-you message.`);
               core.setOutput('isMaintainer', 'true');
             } else {
-              // console.log(`User ${login} is NOT a maintainer.`);
+              console.log(`User ${login} is NOT a maintainer.`);
               core.setOutput('isMaintainer', 'false');
             }
 
@@ -103,19 +103,21 @@ jobs:
             const branch = 'main';
             const mergedCount = parseInt(core.getInput("mergedCount") || 0);
 
+             console.log("merged count is ${mergedCount}.");
+
             // Pick the correct sticker and message
             // This part of the code will change as we need to have a separate repo for the images
             // will modify this code when we decide on what images to use as stickers
             let imageUrl = ``;
             let messageHeader = ``;
 
-            if (mergedCount == 12) {
+            if (mergedCount == 13) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.4/juggling.png`;
               messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're on fire!`;
-            } else if (mergedCount == 11) {
+            } else if (mergedCount == 14) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.5/onboarding-selkies.png`;
               messageHeader = `🌟 Awesome @${login}! **25 merged PRs** — great momentum!`;
-            } else if (mergedCount == 10) {
+            } else if (mergedCount == 15) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.6/santaseal.png`;
               messageHeader = `🚀 Impressive @${login}! **10 merged PRs** — you're making an impact!`;
             } else if (mergedCount == 1) {
@@ -137,5 +139,5 @@ jobs:
                 body: message
               });
             } //else {
-              //console.log("No messageHeader or imageUrl found — skipping comment.");
+              console.log("No messageHeader or imageUrl found — skipping comment.");
             //}
