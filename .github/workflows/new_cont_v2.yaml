@@ -89,7 +89,8 @@ jobs:
 
             const mergedCount = allPRs.filter(pr => pr.user.login === login && pr.merged_at).length;
             console.log(`Merged PR count for ${login}: ${mergedCount}`);
-            core.setOutput("mergedCount", mergedCount);      
+            //core.setOutput("mergedCount", mergedCount);      
+            return mergedCount;
 
       - name: Send thank-you message 
         if: steps.check-maintainer.outputs.isMaintainer == 'false'
@@ -101,10 +102,10 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const branch = 'main';
-            //const mergedCount = parseInt(core.getInput("mergedCount") || 0);
-            const mergedCount = parseInt("${{ steps.calc-prs.outputs.mergedCount }}", 10);
+            //const mergedCount = parseInt("${{ steps.calc-prs.outputs.mergedCount }}", 10);
 
-             console.log(`merged count is ${mergedCount}`);
+            const mergedCount = Number("${{ steps.calc-prs.outputs.result }}");
+            console.log("Merged count (from previous step):", mergedCount);
 
             // Pick the correct sticker and message
             // This part of the code will change as we need to have a separate repo for the images
@@ -112,7 +113,7 @@ jobs:
             let imageUrl = ``;
             let messageHeader = ``;
 
-            if (mergedCount == 13) {
+            if (mergedCount == 16) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.4/juggling.png`;
               messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're on fire!`;
             } else if (mergedCount == 14) {
