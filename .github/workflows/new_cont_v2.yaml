@@ -21,9 +21,6 @@ env:
   ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
   ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}
 
-  REPO_PATH: ${{ github.repository }}
-  BRANCH: ${{ github.ref_name }}
-  
   # temp images picked within the repo, these will change based on what we decide as new images and a location to store them
   IMAGE_1ST: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.7/renovations.png
   IMAGE_10TH: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.6/santaseal.png
