@@ -109,10 +109,10 @@ jobs:
             let imageUrl = ``;
             let messageHeader = ``;
 
-            if (mergedCount == 50) {
+            if (mergedCount == 12) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.4/juggling.png`;
               messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're on fire!`;
-            } else if (mergedCount == 25) {
+            } else if (mergedCount == 11) {
               imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.5/onboarding-selkies.png`;
               messageHeader = `🌟 Awesome @${login}! **25 merged PRs** — great momentum!`;
             } else if (mergedCount == 10) {
