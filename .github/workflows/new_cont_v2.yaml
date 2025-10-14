@@ -21,6 +21,16 @@ env:
   ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
   ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}
 
+  REPO_PATH: ${{ github.repository }}
+  BRANCH: ${{ github.ref_name }}
+  
+  # temp images picked within the repo, these will change based on what we decide as new images and a location to store them
+  IMAGE_1ST: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.7/renovations.png
+  IMAGE_10TH: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.6/santaseal.png
+  IMAGE_25TH: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.5/onboarding-selkies.png
+  IMAGE_50TH: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/website/static/img/blog/podman-desktop-release-1.4/juggling.png
+
+
 on:
   pull_request_target:
     types: [closed]
@@ -99,23 +109,28 @@ jobs:
             const branch = 'main';
             const mergedCount = Number("${{ steps.calc-prs.outputs.result }}");
 
-            // Pick the correct sticker and message
-            // This part of the code will change as we need to have a separate repo for the images
-            // will modify this code when we decide on what images to use as stickers
+            // Dynamically read image URLs from env
+            const images = {
+              first: process.env.IMAGE_1ST,
+              tenth: process.env.IMAGE_10TH,
+              twentyfifth: process.env.IMAGE_25TH,
+              fiftieth: process.env.IMAGE_50TH
+            };
+
             let imageUrl = ``;
             let messageHeader = ``;
 
-            if (mergedCount == 16) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.4/juggling.png`;
-              messageHeader = `🏆 Amazing work @${login}! You've hit **50 merged PRs** — you're on fire!`;
-            } else if (mergedCount == 17) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.5/onboarding-selkies.png`;
-              messageHeader = `🌟 Awesome @${login}! **25 merged PRs** — great momentum!`;
+            if (mergedCount == 17) {
+              imageUrl = images.fiftieth;
+              messageHeader = `🏆 Amazing work @${login}!17 You've hit **50 merged PRs** — you're on fire!`;
             } else if (mergedCount == 18) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.6/santaseal.png`;
-              messageHeader = `🚀 Impressive @${login}! **10 merged PRs** — you're making an impact!`;
-            } else if (mergedCount == 1) {
-              imageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/website/static/img/blog/podman-desktop-release-1.7/renovations.png`;
+              imageUrl = images.twentyfifth;
+              messageHeader = `🌟 Awesome @${login}! **18 25 merged PRs** — great momentum!`;
+            } else if (mergedCount == 19) {
+              imageUrl = images.tenth;
+              messageHeader = `🚀 Impressive @${login}! **19 10 merged PRs** — you're making an impact!`;
+            } else if (mergedCount == 20) {
+              imageUrl = images.first;
               messageHeader = `🎉 Huge thanks @${login} for your **first contribution**!! 🎉`;
             }
 
