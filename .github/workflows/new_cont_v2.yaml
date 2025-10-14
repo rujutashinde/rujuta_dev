@@ -101,9 +101,10 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const branch = 'main';
-            const mergedCount = parseInt(core.getInput("mergedCount") || 0);
+            //const mergedCount = parseInt(core.getInput("mergedCount") || 0);
+            const mergedCount = parseInt("${{ steps.calc-prs.outputs.mergedCount }}", 10);
 
-             console.log("merged count is ${mergedCount}.");
+             console.log(`merged count is ${mergedCount}`);
 
             // Pick the correct sticker and message
             // This part of the code will change as we need to have a separate repo for the images
