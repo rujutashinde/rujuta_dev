@@ -220,7 +220,6 @@ jobs:
               console.warn(`No image URL available for milestone ${mergedCount}. No comment posted.`);
               return;
             }
-
             const message = `
             ${messageHeader}
 
