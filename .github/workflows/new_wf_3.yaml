@@ -117,13 +117,19 @@ jobs:
 
             const mediaOwner = 'rujutashinde';
             const mediaRepo = 'podman-desktop-media';
-            const mediaBranch = 'thank-wf';  
+            const mediaBranch = 'thank-temp';  
             // Map milestone count to folder name
+            //const folderMap = {
+            //  1:  'merge_1',
+            //  10: 'merge_10',
+            //  25: 'merge_25',
+            //  50: 'merge_50'
+            //};
             const folderMap = {
-              1:  'merge_1',
-              10: 'merge_10',
-              25: 'merge_25',
-              50: 'merge_50'
+              17:  'merge_17',
+              18: 'merge_18',
+              19: 'merge_19',
+              20: 'merge_20'
             };
             const folder = folderMap[mergedCount];
 
