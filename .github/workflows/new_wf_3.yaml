@@ -126,7 +126,6 @@ jobs:
               25: 'merge_25',
               50: 'merge_50'
             };
-
             const folder = folderMap[mergedCount];
 
             if (!folder) {
