@@ -76,36 +76,32 @@ jobs:
             core.setOutput('isMaintainer', 'false');
 
       - name: Calculate contribution level
-        id: calc-prs
-        if: steps.check-maintainer.outputs.isMaintainer == 'false'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const login = context.payload.pull_request.user.login;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
+                id: calc-prs
+                if: steps.check-maintainer.outputs.isMaintainer == 'false'
+                uses: actions/github-script@v7
+                with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  script: |
+                    const login = context.payload.pull_request.user.login;
+                    const owner = context.repo.owner;
+                    const repo = context.repo.repo;
 
-            const query = `
-              query($owner: String!, $repo: String!, $login: String!) {
-                repository(owner: $owner, name: $repo) {
-                  pullRequests(states: MERGED, author: $login) {
-                    totalCount
-                  }
-                }
-              }
-            `;
+                    const query = `
+                      query($searchQuery: String!) {
+                        search(query: $searchQuery, type: ISSUE, first: 1) {
+                          issueCount
+                        }
+                      }
+                    `;
 
-            const result = await github.graphql(query, {
-              owner,
-              repo,
-              login
-            });
+                    const result = await github.graphql(query, {
+                      searchQuery: `repo:${owner}/${repo} is:pr is:merged author:${login}`
+                    });
 
-            const mergedCount = result.repository.pullRequests.totalCount;
+                    const mergedCount = result.search.issueCount;
 
-            console.log(`Total merged PRs for ${login} in ${owner}/${repo}: ${mergedCount}`);
-            return mergedCount;     
+                    console.log(`Total merged PRs for ${login} in ${owner}/${repo}: ${mergedCount}`);
+                    return mergedCount;  
 
       - name: Fetch random image for milestone
         id: fetch-image
