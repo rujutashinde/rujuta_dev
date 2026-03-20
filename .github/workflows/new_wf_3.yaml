@@ -117,19 +117,19 @@ jobs:
 
             const mediaOwner = 'rujutashinde';
             const mediaRepo = 'podman-desktop-media';
-            const mediaBranch = 'thank-temp';  
+            const mediaBranch = 'thank-temp1';  
             // Map milestone count to folder name
             //const folderMap = {
-            //  1:  'merge_1',
-            //  10: 'merge_10',
-            //  25: 'merge_25',
-            //  50: 'merge_50'
+            //  1:  'milestone_1',
+            //  10: 'milestone_10',
+            //  25: 'milestone_25',
+            //  50: 'milestone_50'
             //};
             const folderMap = {
-              19:  'merge_17',
-              20: 'merge_18',
-              21: 'merge_19',
-              22: 'merge_20'
+              19: 'milestone_1',
+              20: 'milestone_10',
+              21: 'milestone_25',
+              22: 'milestone_50'
             };
             const folder = folderMap[mergedCount];
 
@@ -209,10 +209,10 @@ jobs:
             //};
 
             const milestoneMessages = {
-              19: `🏆 Amazing work @${login}! You've hit **50 merged PRs** ! You're on fire!`,
-              20: `🌟 Awesome @${login}! **25 merged PRs** ! Great Momentum!`,
-              21: `🚀 Impressive @${login}! **10 merged PRs** ! You're making an impact!`,
-              22:  `🎉 Huge thanks @${login} for your **First Contribution**!! 🎉`
+              19: `🏆 Amazing work @${login}! You've hit **${mergedCount} merged PRs** ! You're on fire!`,
+              20: `🌟 Awesome @${login}! **${mergedCount} merged PRs** ! Great Momentum!`,
+              21: `🚀 Impressive @${login}! **${mergedCount} merged PRs** ! You're making an impact!`,
+              22:  `🎉 Huge thanks @${login} for your **${mergedCount}First Contribution**!! 🎉`
             };
 
             const messageHeader = milestoneMessages[mergedCount];
