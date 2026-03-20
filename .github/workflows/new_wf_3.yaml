@@ -118,7 +118,6 @@ jobs:
             const mediaOwner = 'rujutashinde';
             const mediaRepo = 'podman-desktop-media';
             const mediaBranch = 'thank-wf';  
-
             // Map milestone count to folder name
             const folderMap = {
               1:  'merge_1',
