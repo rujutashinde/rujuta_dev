@@ -34,7 +34,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const login = context.payload.pull_request.user.login;
-            const org = context.repo.owner;
+            //const org = context.repo.owner;
+            const org = 'podman-desktop';
 
             // team slugs to check.
             const teamSlugs = ['committers', 'qe-reviewers']; 
@@ -73,7 +74,7 @@ jobs:
 
             core.setOutput('isMaintainer', isOrgTeamMember ? 'true' : 'false');
             // for test purpose, setting the output as isMaintainer as false so the next steps are implemented
-            core.setOutput('isMaintainer', 'false');
+            //core.setOutput('isMaintainer', 'false');
 
       - name: Calculate contribution level
         id: calc-prs
