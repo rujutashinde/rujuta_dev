@@ -86,15 +86,26 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            const { data: allPRs } = await github.rest.pulls.list({
+            const query = `
+              query($owner: String!, $repo: String!, $login: String!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequests(states: MERGED, author: $login) {
+                    totalCount
+                  }
+                }
+              }
+            `;
+
+            const result = await github.graphql(query, {
               owner,
               repo,
-              state: "closed",
-              per_page: 100
+              login
             });
 
-            const mergedCount = allPRs.filter(pr => pr.user.login === login && pr.merged_at).length;
-            return mergedCount;
+            const mergedCount = result.repository.pullRequests.totalCount;
+
+            console.log(`Total merged PRs for ${login} in ${owner}/${repo}: ${mergedCount}`);
+            return mergedCount;     
 
       - name: Fetch random image for milestone
         id: fetch-image
