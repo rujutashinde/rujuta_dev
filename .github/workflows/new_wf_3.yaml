@@ -93,7 +93,6 @@ jobs:
                 }
               }
             `;
-
             const result = await github.graphql(query, {
               searchQuery: `repo:${owner}/${repo} is:pr is:merged author:${login}`
             });
