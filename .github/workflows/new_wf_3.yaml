@@ -32,7 +32,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           #github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-token: ${{ secrets.ORG_READ_TOKEN }}
+          github-token: ${{ secrets.CREATE_COMMENT_TOKEN }}
           script: |
             const login = context.payload.pull_request.user.login;
             //const org = context.repo.owner;
@@ -134,9 +134,9 @@ jobs:
             //};
             const folderMap = {
               19: 'milestone_1',
-              20: 'milestone_10',
-              21: 'milestone_25',
-              22: 'milestone_50'
+              24: 'milestone_10',
+              25: 'milestone_25',
+              26: 'milestone_50'
             };
             const folder = folderMap[mergedCount];
 
