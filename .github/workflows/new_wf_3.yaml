@@ -136,7 +136,7 @@ jobs:
               19: 'milestone_1',
               24: 'milestone_10',
               25: 'milestone_25',
-              26: 'milestone_50'
+              26: 'milestone_50',
               9: 'milestone_1',
               10: 'milestone_10',
               11: 'milestone_25',
@@ -225,7 +225,7 @@ jobs:
               19: `🏆 Amazing work @${login}! You've hit **${mergedCount} merged PRs** ! You're on fire!`,
               20: `🌟 Awesome @${login}! **${mergedCount} merged PRs** ! Great Momentum!`,
               21: `🚀 Impressive @${login}! **${mergedCount} merged PRs** ! You're making an impact!`,
-              22:  `🎉 Huge thanks @${login} for your **${mergedCount}First Contribution**!! 🎉`
+              22:  `🎉 Huge thanks @${login} for your **${mergedCount}First Contribution**!! 🎉`,
               9: `🏆 Amazing work @${login}! You've hit **${mergedCount} merged PRs** ! You're on fire!`,
               10: `🌟 Awesome @${login}! **${mergedCount} merged PRs** ! Great Momentum!`,
               11: `🚀 Impressive @${login}! **${mergedCount} merged PRs** ! You're making an impact!`,
