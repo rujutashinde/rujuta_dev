@@ -148,9 +148,11 @@ jobs:
               console.log(`mergedCount=${mergedCount} does not match any milestone folder. Skipping.`);
               core.setOutput('imageUrl', '');
               core.setOutput('folder', '');
+              core.setOutput('skipped', 'true');
               return;
             }
 
+            core.setOutput('skipped', 'false');
             console.log(`Milestone matched! Fetching images only from folder: "${folder}"`);
 
             // Fetch ONLY the contents of the matched milestone folder
@@ -164,9 +166,7 @@ jobs:
               });
               files = Array.isArray(data) ? data : [data];
             } catch (err) {
-              console.error(`Failed to fetch folder "${folder}" from ${mediaOwner}/${mediaRepo}@${mediaBranch}: ${err.message}`);
-              core.setOutput('imageUrl', '');
-              core.setOutput('folder', '');
+              core.setFailed(`Failed to fetch folder "${folder}" from ${mediaOwner}/${mediaRepo}@${mediaBranch}: ${err.message}`);
               return;
             }
 
@@ -180,9 +180,8 @@ jobs:
             );
 
             if (imageFiles.length === 0) {
-              console.warn(`No image files found in folder "${folder}".`);
-              core.setOutput('imageUrl', '');
-              core.setOutput('folder', folder);
+              // Folder exists but has no images — fail the step so the next step is skipped
+              core.setFailed(`No image files found in folder "${folder}" in ${mediaOwner}/${mediaRepo}@${mediaBranch}.`);
               return;
             }
 
@@ -199,7 +198,10 @@ jobs:
             core.setOutput('folder', folder);
 
       - name: Send thank-you message
-        if: steps.check-maintainer.outputs.isMaintainer == 'false'
+        if: |
+          steps.check-maintainer.outputs.isMaintainer == 'false' &&
+          steps.fetch-image.result == 'success' &&
+          steps.fetch-image.outputs.skipped == 'false'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.CREATE_COMMENT_TOKEN }}
