@@ -200,7 +200,7 @@ jobs:
       - name: Send thank-you message
         if: |
           steps.check-maintainer.outputs.isMaintainer == 'false' &&
-          steps.fetch-image.result == 'success' &&
+          steps.fetch-image.outcome == 'success' &&
           steps.fetch-image.outputs.skipped == 'false'
         uses: actions/github-script@v7
         with:
